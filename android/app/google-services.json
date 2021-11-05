@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "957581186182",
+    "project_id": "time-sheet-72c58",
+    "storage_bucket": "time-sheet-72c58.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:957581186182:android:7753b5e54be0c6d7aaad07",
+        "android_client_info": {
+          "package_name": "com.timesheet.timesheet_flutter_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "957581186182-tpt36g42umcf79u6gug8ins7i6e7fkhg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.timesheet.timesheet_flutter_app",
+            "certificate_hash": "f6bd364395cf41168c0d8d4eb3422909c4071a03"
+          }
+        },
+        {
+          "client_id": "957581186182-gq62v68mr9fdqvj5d8033b274srmlvlt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDwUX6tQDEyAvrom21xYCZ36pDRiBIYWEo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "957581186182-gq62v68mr9fdqvj5d8033b274srmlvlt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
