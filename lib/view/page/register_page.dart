@@ -5,7 +5,6 @@ import 'package:timesheet_flutter_app/controller/user_controller.dart';
 
 import 'main_page.dart';
 
-
 /// Entrypoint example for registering via Email/Password.
 class RegisterPage extends StatefulWidget {
   /// The page title.
@@ -66,23 +65,24 @@ class _RegisterPageState extends State<RegisterPage> {
                     label: const Text('Register'),
                     icon: const Icon(Icons.person_add),
                     style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all<Color>(Colors.blueGrey),
+                      backgroundColor:
+                          MaterialStateProperty.all<Color>(Colors.blueGrey),
                     ),
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
                         userController.register(
-                            email: _emailController.text,
-                            password: _passwordController.text,
-                            error: (){
-                              _success = false;
-                            },
-                            action: (User user){
-                              setState(() {
-                                _success = true;
-                                _userEmail = user.email ?? '';
-                                Get.offAll(const MainPage());
-                              });
-                            },
+                          email: _emailController.text,
+                          password: _passwordController.text,
+                          error: (String error) {
+                            Get.snackbar("Error", error);
+                          },
+                          action: (User user) {
+                            setState(() {
+                              _success = true;
+                              _userEmail = user.email ?? '';
+                              Get.offAll(const MainPage());
+                            });
+                          },
                         );
                       }
                     },

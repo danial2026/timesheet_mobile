@@ -6,7 +6,10 @@ class UserController extends GetxController {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
 
-  Future<String?> signInWithGoogle() async {
+  void signInWithGoogle({
+    required Function(String error) error,
+    required Function action,
+  }) async {
     try {
       final GoogleSignInAccount? googleSignInAccount =
           await _googleSignIn.signIn();
@@ -17,22 +20,22 @@ class UserController extends GetxController {
         idToken: googleSignInAuthentication.idToken,
       );
       await _auth.signInWithCredential(credential);
+      action();
     } on FirebaseAuthException catch (e) {
-      print(e.message);
-      throw e;
+      error(e.message!);
     }
   }
 
   void signOutFromGoogle({
-    required Function error,
+    required Function(String error) error,
     required Function action,
   }) async {
     try {
       await _googleSignIn.signOut();
       await _auth.signOut();
       action();
-    } catch (e) {
-      error();
+    } on FirebaseAuthException catch (e) {
+      error(e.message!);
     }
   }
 
@@ -48,7 +51,7 @@ class UserController extends GetxController {
   void register({
     required String email,
     required String password,
-    required Function error,
+    required Function(String error) error,
     required Function(User user) action,
   }) async {
     final User? user = (await _auth.createUserWithEmailAndPassword(
@@ -59,14 +62,14 @@ class UserController extends GetxController {
     if (user != null) {
       action(user);
     } else {
-      error();
+      error("Error");
     }
   }
 
   void signInWithEmailAndPassword({
     required String email,
     required String password,
-    required Function error,
+    required Function(String error) error,
     required Function(User user) action,
   }) async {
     try {
@@ -76,8 +79,8 @@ class UserController extends GetxController {
       ))
           .user!;
       action(user);
-    } catch (e) {
-      error();
+    } on FirebaseAuthException catch (e) {
+      error(e.message!);
     }
   }
 
@@ -85,8 +88,8 @@ class UserController extends GetxController {
     try {
       User? user = FirebaseAuth.instance.currentUser;
       return user;
-    } catch (e) {
-      print(e);
+    } on FirebaseAuthException catch (e) {
+      print(e.message);
     }
   }
 }

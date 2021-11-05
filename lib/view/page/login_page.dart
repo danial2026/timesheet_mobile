@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:timesheet_flutter_app/controller/user_controller.dart';
+import 'package:timesheet_flutter_app/view/page/main_page.dart';
 import 'package:timesheet_flutter_app/view/page/register_page.dart';
-
-import 'main_page.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -13,7 +12,6 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final UserController userController = UserController();
-  bool isLoading = false;
 
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -104,8 +102,10 @@ class _LoginPageState extends State<LoginPage> {
                     userController.signInWithEmailAndPassword(
                         email: _emailController.text,
                         password: _passwordController.text,
-                        error: (){},
-                        action: (User user){
+                        error: (String error) {
+                          Get.snackbar("Error", error);
+                        },
+                        action: (User user) {
                           Get.offAll(const MainPage());
                         });
                   },
@@ -153,58 +153,41 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget _GoogleSignIn(Size size) {
-    return !isLoading
-        ? SizedBox(
-            width: size.width * 0.8,
-            child: OutlinedButton.icon(
-              // icon: FaIcon(FontAwesomeIcons.google),
-              icon: const Icon(Icons.add),
-              onPressed: () async {
-                setState(() {
-                  isLoading = true;
-                });
-                try {
-                  await userController.signInWithGoogle();
-                  Get.offAll(const MainPage());
-                } catch (e) {
-                  if (e is FirebaseAuthException) {
-                    showMessage(e.message!);
-                  }
-                }
-                setState(() {
-                  isLoading = false;
-                });
-              },
-              label: const Text(
-                'Login With Google Account',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-              style: ButtonStyle(
-                backgroundColor:
-                    MaterialStateProperty.all<Color>(Colors.grey.shade200),
-                side: MaterialStateProperty.all<BorderSide>(BorderSide.none),
-              ),
-            ),
-          )
-        : CircularProgressIndicator();
-  }
-
-  void showMessage(String message) {
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text("Error"),
-            content: Text(message),
-            actions: [
-              TextButton(
-                child: Text("Ok"),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              )
-            ],
+    return SizedBox(
+      width: size.width * 0.8,
+      child: OutlinedButton.icon(
+        icon: const Icon(Icons.add),
+        onPressed: () async {
+          showDialog(
+            barrierDismissible: false,
+            context: context,
+            builder: (BuildContext context) {
+              return Container(
+                color: Colors.transparent,
+                child: const Center(child: CircularProgressIndicator()),
+              );
+            },
           );
-        });
+          userController.signInWithGoogle(
+            error: (String error) {
+              Navigator.pop(context);
+              Get.snackbar("Error", error);
+            },
+            action: () {
+              Get.offAll(const MainPage());
+            },
+          );
+        },
+        label: const Text(
+          'Login With Google Account',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        style: ButtonStyle(
+          backgroundColor:
+              MaterialStateProperty.all<Color>(Colors.grey.shade200),
+          side: MaterialStateProperty.all<BorderSide>(BorderSide.none),
+        ),
+      ),
+    );
   }
 }

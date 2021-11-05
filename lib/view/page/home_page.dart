@@ -21,7 +21,9 @@ class HomePage extends StatelessWidget {
           IconButton(
               onPressed: () {
                 userController.signOutFromGoogle(
-                    error: () {},
+                    error: (String error) {
+                      Get.snackbar("Error", error);
+                    },
                     action: () {
                       Get.offAll(LoginPage());
                     });
