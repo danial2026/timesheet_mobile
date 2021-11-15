@@ -16,8 +16,7 @@ class SheetPage extends StatefulWidget {
 
 class _SheetPageState extends State<SheetPage> {
   final UserController userController = UserController();
-  // String hhh = '';
-  // final JiraController jiraController = Get.put(JiraController());
+  
   List<GooleSheetForm> feedbackItems = <GooleSheetForm>[];
 
   Map<String, String> googleSheetParam;
@@ -59,7 +58,7 @@ class _SheetPageState extends State<SheetPage> {
           //     onPressed: () {},
           //     child: Icon(Icons.task_alt),
           //   ),
-          // ),
+          // ),Icon
           Positioned(
             right: 15,
             bottom: 15,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:timesheet_flutter_app/view/page/home_page.dart';
-import 'package:timesheet_flutter_app/view/page/spreadsheet_page.dart';
+import 'package:timesheet_flutter_app/view/page/spread_sheet_page.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
