@@ -10,6 +10,8 @@ class RegisterPage extends StatefulWidget {
   /// The page title.
   final String title = 'Registration';
 
+  const RegisterPage({Key? key}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() => _RegisterPageState();
 }

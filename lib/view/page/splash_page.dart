@@ -17,7 +17,7 @@ class _SplashPageState extends State<SplashPage> {
   final UserController _userController = UserController();
 
   void _checkUser() async {
-    await Future.delayed(const Duration(seconds: 10));
+    await Future.delayed(const Duration(seconds: 2));
     bool status = _userController.checkUserStatus();
     if (status) {
       Get.offAll(const MainPage());

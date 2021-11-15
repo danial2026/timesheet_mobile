@@ -1,41 +1,33 @@
 {
   "project_info": {
-    "project_number": "957581186182",
-    "project_id": "time-sheet-72c58",
-    "storage_bucket": "time-sheet-72c58.appspot.com"
+    "project_number": "671731988047",
+    "project_id": "sheets-91487",
+    "storage_bucket": "sheets-91487.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:957581186182:android:7753b5e54be0c6d7aaad07",
+        "mobilesdk_app_id": "1:671731988047:android:2b91b85d22e51499501c3a",
         "android_client_info": {
           "package_name": "com.timesheet.timesheet_flutter_app"
         }
       },
       "oauth_client": [
         {
-          "client_id": "957581186182-tpt36g42umcf79u6gug8ins7i6e7fkhg.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.timesheet.timesheet_flutter_app",
-            "certificate_hash": "f6bd364395cf41168c0d8d4eb3422909c4071a03"
-          }
-        },
-        {
-          "client_id": "957581186182-gq62v68mr9fdqvj5d8033b274srmlvlt.apps.googleusercontent.com",
+          "client_id": "671731988047-moiuupp8ip20kp0abt5vqcgbcqv548c3.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDwUX6tQDEyAvrom21xYCZ36pDRiBIYWEo"
+          "current_key": "AIzaSyD2Z_UI2DwD4T9uwYOzBWkkkLO1BT46rTY"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "957581186182-gq62v68mr9fdqvj5d8033b274srmlvlt.apps.googleusercontent.com",
+              "client_id": "671731988047-moiuupp8ip20kp0abt5vqcgbcqv548c3.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
