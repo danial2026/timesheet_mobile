@@ -77,23 +77,6 @@ class _SpreadsheetPageState extends State<SpreadsheetPage> {
             child: FloatingActionButton(
               heroTag: 'start',
               onPressed: () async {
-                const Map<String, String> googleSheetParam = {
-                  "q": "taskList",
-                  "spreadsheetId":
-                      "1txtgLUf7TQwZkc_kYcWqbuBuVKLAKNmNydpIQH-6nNE",
-                  "sheetName": "November"
-                };
-
-                print(userController.getUserData());
-
-                LocalDataSource lds = new LocalDataSource();
-                final String? accessToken = await lds.getToken();
-
-                print(accessToken);
-
-                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                  return SheetPage(googleSheetParam);
-                }));
               },
               child: Icon(Icons.play_arrow_rounded),
             ),
@@ -109,16 +92,30 @@ class _SpreadsheetPageState extends State<SpreadsheetPage> {
               print(spreadSheetDTOs[index].toJson().toString());
 
               Map<String, String> sheetId = {
-                "workSpaceId": spreadSheetDTOs[index].workSpaceId 
+                "workSpaceId": spreadSheetDTOs[index].workSpaceId
               };
 
-              GoogleController().getSpreadSheetDetails(sheetId).then((sheetDTO) {
-                // setState(() {
-                  print(sheetDTO);
-                // });
-              });
+              SpreadSheetDTO spreadSheetDTO =
+                  await GoogleController().getSpreadSheetDetails(sheetId);
+              
+              print(spreadSheetDTO);
 
-              // jiraController.testAuth2();
+              Map<String, String> googleSheetParam = {
+                "q": "taskList",
+                "spreadsheetId": spreadSheetDTO.spreadSheetId.toString(),
+                "sheetName": spreadSheetDTO.sheets!.last.sheetTitle.toString()
+              };
+
+              print(userController.getUserData());
+
+              LocalDataSource lds = new LocalDataSource();
+              final String? accessToken = await lds.getToken();
+
+              print(accessToken);
+
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return SheetPage(googleSheetParam);
+              }));
             },
             title: Row(
               children: <Widget>[

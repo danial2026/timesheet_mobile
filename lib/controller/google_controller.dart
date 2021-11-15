@@ -17,7 +17,8 @@ class GoogleController extends GetxController {
   static const String googleSheetPATH =
       "/macros/s/AKfycbwBxxN9u1OrALy7Rmwk6sz6zQATPR1c1mbwte8MyqA/dev";
 
-  static const String serverURL = "192.168.43.114:8082";
+  // static const String serverURL = "192.168.43.114:8082";
+  static const String serverURL = "192.168.1.33:8082";
 
   static const String serverPATH = "/api/v1";
 
