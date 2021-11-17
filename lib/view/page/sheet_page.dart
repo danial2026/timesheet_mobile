@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:timesheet_flutter_app/controller/google_controller.dart';
 import 'package:timesheet_flutter_app/controller/user_controller.dart';
 import 'package:timesheet_flutter_app/model/form_google_sheet.dart';
@@ -16,7 +15,7 @@ class SheetPage extends StatefulWidget {
 
 class _SheetPageState extends State<SheetPage> {
   final UserController userController = UserController();
-  
+
   List<GooleSheetForm> feedbackItems = <GooleSheetForm>[];
 
   Map<String, String> googleSheetParam;
@@ -35,8 +34,6 @@ class _SheetPageState extends State<SheetPage> {
       });
     });
   }
-
-  // final JiraController jiraController = Get.put(JiraController());
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +55,7 @@ class _SheetPageState extends State<SheetPage> {
           //     onPressed: () {},
           //     child: Icon(Icons.task_alt),
           //   ),
-          // ),Icon
+          // ),
           Positioned(
             right: 15,
             bottom: 15,
@@ -75,6 +72,7 @@ class _SheetPageState extends State<SheetPage> {
         itemCount: feedbackItems.length,
         itemBuilder: (context, index) {
           String date = feedbackItems[index].actual;
+          var isToday = false;
 
           // String timeText = "";
           if (date != "") {
@@ -103,18 +101,37 @@ class _SheetPageState extends State<SheetPage> {
                   .join(':');
             }
           }
+
+          if (feedbackItems[index].date.contains(" ")) {
+            DateTime now = new DateTime.now();
+            String todayString =
+                monthsInName[now.month].toString() + " " + now.day.toString();
+            if (todayString == feedbackItems[index].date) {
+              isToday = true;
+            }
+          }
           return ListTile(
             onTap: () async {
               print(feedbackItems[index].toJson().toString());
-              // jiraController.testAuth2();
+              if (feedbackItems[index].date.contains(" ")) {
+                DateTime now = new DateTime.now();
+                String todayString = monthsInName[now.month].toString() +
+                    " " +
+                    now.day.toString();
+                if (todayString == feedbackItems[index].date) {
+                  print("true");
+                }
+              }
+
             },
             title: Row(
               children: <Widget>[
-                // Icon(Icons.date_range),
                 Expanded(
                   child: Text(
-                      "${feedbackItems[index].date} ${feedbackItems[index].weekday}"),
-                )
+                      "${feedbackItems[index].date} ${feedbackItems[index].weekday}",
+                      style: TextStyle(color: isToday ? Colors.redAccent : Colors.black,),
+                ),
+                ),
               ],
             ),
             subtitle: Row(
@@ -130,3 +147,33 @@ class _SheetPageState extends State<SheetPage> {
     );
   }
 }
+
+const Map<String, int> monthsInInt = {
+  "January": 1,
+  "February": 2,
+  "March": 3,
+  "April": 4,
+  "May": 5,
+  "June": 6,
+  "July": 7,
+  "August": 8,
+  "September": 9,
+  "October": 10,
+  "November": 11,
+  "December": 12
+};
+
+const Map<int, String> monthsInName = {
+  1: "January",
+  2: "February",
+  3: "March",
+  4: "April",
+  5: "May",
+  6: "June",
+  7: "July",
+  8: "August",
+  9: "September",
+  10: "October",
+  11: "November",
+  12: "December"
+};
